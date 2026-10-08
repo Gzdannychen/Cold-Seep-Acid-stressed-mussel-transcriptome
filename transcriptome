@@ -1,0 +1,6 @@
+Raw reads were trimmed with Trimmomatic (v0.39) to remove Illumina TruSeq adapters and low-quality bases (ILLUMINACLIP:TruSeq3-PE.fa:2:30:10 LEADING:3 TRAILING:3 SLIDINGWINDOW:4:15 MINLEN:50). 
+Clean reads were aligned to the reference genome using HISAT2 (v2.0.4) with the parameters ‘--dta -p 6 --max-intronlen 5000000’. 
+Transcripts were assembled and merged with StringTie (v2.2.1) with the command ‘--merge -F 0.1 -T 0.1’, and the resulting assemblies were compared with the reference GFF3 annotation using gffcompare (v0.12.6, default parameters). 
+For functional annotation, predicted proteins were searched against reference databases using DIAMOND (v2.0.15; -k 100 -e-value 1e-5 -f 5); Pfam domains were identified with hmmscan (v3.3.2; --noali --cut_nc --acc --notextw), and Gene Ontology (GO) terms were assigned using InterProScan (v5.34-73.0; -appl Pfam -goterms -iprlookup -pa -f xml -dp -t p). 
+Differential expression analysis was performed with DESeq2 (v1.30.1; Wald test, parametric fit). 
+Functional enrichment analyses were conducted using the R package clusterProfiler (v4.4.4; minGSSize=1, maxGSSize=10000, pAdjustMethod="fdr") and topGO (v2.48.0; firstSigNodes=5). 
